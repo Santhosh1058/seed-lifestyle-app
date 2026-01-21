@@ -187,13 +187,13 @@ const Dashboard = () => {
     ];
 
     return (
-        <div className="space-y-8 relative">
-            <header className="flex justify-between items-center mb-6">
+        <div className="space-y-8 relative max-w-[1600px] mx-auto">
+            <header className="flex justify-between items-end mb-8 border-b border-gray-200/50 pb-6">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Dashboard</h2>
-                    <p className="text-sm text-gray-500 font-medium">Business Overview & Quick Actions</p>
+                    <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight lg:text-4xl leading-tight">Dashboard.</h2>
+                    <p className="text-sm text-gray-400 font-medium tracking-wide mt-1">Overview & Statistics</p>
                 </div>
-                <div className="text-xs font-semibold text-gray-400 bg-white px-4 py-2 rounded-lg border border-gray-100 shadow-sm uppercase tracking-wide">
+                <div className="text-xs font-semibold text-gray-500 bg-white/50 backdrop-blur-md px-4 py-2 border border-white/40 shadow-sm uppercase tracking-widest rounded-full">
                     {formatDate(new Date().toISOString())}
                 </div>
             </header>
@@ -201,18 +201,18 @@ const Dashboard = () => {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {statCards.map((stat, index) => (
-                    <div key={index} className="bg-white p-6 rounded-2xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] border border-gray-50 flex flex-col justify-between h-36 group hover:translate-y-[-2px] transition-all duration-300">
+                    <div key={index} className="bg-white/70 backdrop-blur-lg p-8 rounded-3xl shadow-sm border border-white/50 flex flex-col justify-between h-48 hover:shadow-md transition-all duration-300">
                         <div className="flex justify-between items-start">
-                            <div>
-                                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">{stat.title}</p>
+                            <div className="space-y-2">
+                                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{stat.title}</p>
                                 {stat.value}
                             </div>
-                            <div className={`p-3.5 rounded-2xl ${stat.bg} group-hover:scale-110 transition-transform duration-300`}>
+                            <div className={`p-4 rounded-2xl ${stat.bg} mix-blend-multiply opacity-80`}>
                                 <stat.icon className={`h-6 w-6 ${stat.color}`} strokeWidth={1.5} />
                             </div>
                         </div>
                         <div className="flex items-center gap-2 mt-auto">
-                            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${stat.changeType === 'positive' ? 'bg-emerald-100 text-emerald-700' : stat.changeType === 'negative' ? 'bg-rose-100 text-rose-700' : 'bg-blue-100 text-blue-700'}`}>
+                            <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${stat.changeType === 'positive' ? 'bg-emerald-50 text-emerald-600' : stat.changeType === 'negative' ? 'bg-rose-50 text-rose-600' : 'bg-blue-50 text-blue-600'}`}>
                                 {stat.change}
                             </span>
                         </div>
@@ -221,15 +221,15 @@ const Dashboard = () => {
             </div>
 
             {/* Content Area with Tabs */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden min-h-[600px]">
-                <div className="border-b border-gray-100 px-8 flex flex-col items-start bg-white sticky top-0 z-10 pt-4 pb-0">
-                    <div className="flex space-x-10 w-full overflow-x-auto no-scrollbar mb-4">
+            <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-sm border border-white/60 overflow-hidden min-h-[600px]">
+                <div className="border-b border-gray-100 px-8 flex flex-col items-start bg-white/50 sticky top-0 z-10 pt-8 pb-0 backdrop-blur-md">
+                    <div className="flex space-x-12 w-full overflow-x-auto no-scrollbar mb-6">
                         {['sales', 'stock', 'expenses'].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => handleTabChange(tab)}
-                                className={`pb-4 text-sm font-bold border-b-[3px] transition-all capitalize tracking-wide whitespace-nowrap ${activeTab === tab
-                                    ? 'border-emerald-500 text-emerald-700'
+                                className={`pb-4 text-sm font-bold border-b-2 transition-all capitalize tracking-wider ${activeTab === tab
+                                    ? 'border-emerald-500 text-gray-900'
                                     : 'border-transparent text-gray-400 hover:text-gray-600'
                                     }`}
                             >
@@ -239,54 +239,54 @@ const Dashboard = () => {
                     </div>
 
                     {/* Filters Bar */}
-                    <div className="w-full flex flex-col md:flex-row gap-4 mb-6 pt-2 items-center">
+                    <div className="w-full flex flex-col md:flex-row gap-5 mb-8 pt-2 items-center">
                         {/* Search */}
-                        <div className="relative flex-grow w-full md:w-auto">
+                        <div className="relative flex-grow w-full md:w-auto group">
                             <input
                                 type="text"
                                 placeholder={`Search ${activeTab}...`}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all shadow-sm"
+                                className="w-full pl-11 pr-4 py-3 bg-gray-50/50 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-1 focus:ring-emerald-500/50 focus:bg-white transition-all text-gray-700 placeholder:text-gray-400 font-medium group-hover:bg-white"
                             />
-                            <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                            <Search className="absolute left-4 top-3.5 h-4 w-4 text-gray-400 group-hover:text-emerald-500 transition-colors" strokeWidth={2} />
                         </div>
 
-                        {/* Entity Filter (Customer/Supplier/Category) */}
-                        <div className="relative w-full md:w-48">
+                        {/* Entity Filter */}
+                        <div className="relative w-full md:w-56 group">
                             <select
                                 value={selectedEntity}
                                 onChange={(e) => setSelectedEntity(e.target.value)}
-                                className="w-full pl-10 pr-8 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all appearance-none shadow-sm cursor-pointer text-gray-600 font-medium"
+                                className="w-full pl-11 pr-10 py-3 bg-gray-50/50 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-1 focus:ring-emerald-500/50 focus:bg-white transition-all appearance-none cursor-pointer text-gray-600 font-medium group-hover:bg-white"
                             >
                                 <option value="">All {activeTab === 'sales' ? 'Customers' : activeTab === 'stock' ? 'Suppliers' : 'Categories'}</option>
                                 {uniqueEntities.map(entity => (
                                     <option key={entity} value={entity}>{entity}</option>
                                 ))}
                             </select>
-                            <Filter className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                            <Filter className="absolute left-4 top-3.5 h-4 w-4 text-gray-400 group-hover:text-emerald-500 transition-colors" strokeWidth={2} />
                         </div>
 
                         {/* Date Range */}
-                        <div className="flex gap-2 items-center w-full md:w-auto">
-                            <div className="relative w-full md:w-36">
+                        <div className="flex gap-3 items-center w-full md:w-auto">
+                            <div className="relative w-full md:w-40 group">
                                 <input
                                     type="date"
                                     value={dateRange.start}
                                     onChange={(e) => setDateRange({ ...dateRange, start: e.target.value })}
-                                    className="w-full pl-9 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all shadow-sm text-gray-600 uppercase"
+                                    className="w-full pl-10 pr-4 py-3 bg-gray-50/50 border border-gray-200 rounded-2xl text-xs font-bold focus:outline-none focus:ring-1 focus:ring-emerald-500/50 focus:bg-white transition-all text-gray-500 uppercase tracking-wide group-hover:bg-white"
                                 />
-                                <Calendar className="absolute left-3 top-3 h-3.5 w-3.5 text-gray-400" />
+                                <Calendar className="absolute left-3.5 top-3.5 h-4 w-4 text-gray-300 group-hover:text-emerald-500 transition-colors" strokeWidth={2} />
                             </div>
-                            <span className="text-gray-300 font-bold">-</span>
-                            <div className="relative w-full md:w-36">
+                            <span className="text-gray-200 font-light">/</span>
+                            <div className="relative w-full md:w-40 group">
                                 <input
                                     type="date"
                                     value={dateRange.end}
                                     onChange={(e) => setDateRange({ ...dateRange, end: e.target.value })}
-                                    className="w-full pl-9 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all shadow-sm text-gray-600 uppercase"
+                                    className="w-full pl-10 pr-4 py-3 bg-gray-50/50 border border-gray-200 rounded-2xl text-xs font-bold focus:outline-none focus:ring-1 focus:ring-emerald-500/50 focus:bg-white transition-all text-gray-500 uppercase tracking-wide group-hover:bg-white"
                                 />
-                                <Calendar className="absolute left-3 top-3 h-3.5 w-3.5 text-gray-400" />
+                                <Calendar className="absolute left-3.5 top-3.5 h-4 w-4 text-gray-300 group-hover:text-emerald-500 transition-colors" strokeWidth={2} />
                             </div>
                         </div>
 
@@ -294,10 +294,10 @@ const Dashboard = () => {
                         {(searchQuery || selectedEntity || dateRange.start || dateRange.end) && (
                             <button
                                 onClick={() => { setSearchQuery(''); setSelectedEntity(''); setDateRange({ start: '', end: '' }) }}
-                                className="p-2.5 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors"
+                                className="p-3 text-rose-500 hover:bg-rose-50 rounded-2xl transition-all border border-transparent hover:border-rose-100"
                                 title="Clear Filters"
                             >
-                                <X size={18} strokeWidth={2.5} />
+                                <X size={20} strokeWidth={2} />
                             </button>
                         )}
                     </div>
@@ -307,45 +307,45 @@ const Dashboard = () => {
                     {activeTab === 'sales' && (
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm text-left text-gray-500">
-                                <thead className="text-xs text-gray-400 font-bold uppercase bg-gray-50/50 tracking-wider">
+                                <thead className="text-xs text-gray-400 font-bold uppercase tracking-widest border-b border-gray-100">
                                     <tr>
-                                        <th className="px-8 py-5">Date</th>
-                                        <th className="px-6 py-5">Customer</th>
-                                        <th className="px-6 py-5">Total</th>
-                                        <th className="px-6 py-5">Paid</th>
-                                        <th className="px-6 py-5">Due</th>
-                                        <th className="px-6 py-5">Fast Action</th>
-                                        <th className="px-6 py-5 text-center">Manage</th>
+                                        <th className="px-8 py-6 font-semibold">Date</th>
+                                        <th className="px-8 py-6 font-semibold">Customer</th>
+                                        <th className="px-8 py-6 font-semibold">Total</th>
+                                        <th className="px-8 py-6 font-semibold">Paid</th>
+                                        <th className="px-8 py-6 font-semibold">Due</th>
+                                        <th className="px-8 py-6 font-semibold">Fast Action</th>
+                                        <th className="px-8 py-6 text-center font-semibold">Manage</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-gray-50">
+                                <tbody className="">
                                     {filteredData.length === 0 ? (
-                                        <tr><td colSpan="7" className="px-8 py-10 text-center text-gray-400">No active sales found matching filters.</td></tr>
+                                        <tr><td colSpan="7" className="px-8 py-16 text-center text-gray-400 font-medium">No sales matches found.</td></tr>
                                     ) : (
                                         filteredData.map((sale) => (
-                                            <tr key={sale.id} className="bg-white hover:bg-gray-50/80 transition-colors">
-                                                <td className="px-8 py-5 text-gray-500 font-mono text-xs">{formatDate(sale.sale_date)}</td>
-                                                <td className="px-6 py-5 font-bold text-gray-900">{sale.customer_name}</td>
-                                                <td className="px-6 py-5 text-gray-600 font-medium">₹{sale.total_amount_due}</td>
-                                                <td className="px-6 py-5 text-emerald-600 font-bold">+₹{sale.amount_paid}</td>
-                                                <td className="px-6 py-5">
+                                            <tr key={sale.id} className="group hover:bg-gray-50/50 transition-colors border-b border-gray-50 last:border-0">
+                                                <td className="px-8 py-6 text-gray-400 font-mono text-xs tracking-wider">{formatDate(sale.sale_date)}</td>
+                                                <td className="px-8 py-6 font-bold text-gray-900 text-base">{sale.customer_name}</td>
+                                                <td className="px-8 py-6 text-gray-600 font-medium">₹{sale.total_amount_due.toLocaleString()}</td>
+                                                <td className="px-8 py-6 text-emerald-600 font-bold">+₹{sale.amount_paid.toLocaleString()}</td>
+                                                <td className="px-8 py-6">
                                                     {sale.total_amount_due - sale.amount_paid > 0 ? (
-                                                        <span className="text-rose-600 font-bold bg-rose-50 px-2 py-1 rounded text-xs">₹{sale.total_amount_due - sale.amount_paid}</span>
+                                                        <span className="text-rose-500 font-bold bg-rose-50 px-2.5 py-1 rounded-lg text-xs">₹{(sale.total_amount_due - sale.amount_paid).toLocaleString()}</span>
                                                     ) : (
-                                                        <span className="text-gray-300">-</span>
+                                                        <span className="text-gray-200 font-light">-</span>
                                                     )}
                                                 </td>
-                                                <td className="px-6 py-5">
+                                                <td className="px-8 py-6">
                                                     {sale.is_fully_paid ? (
-                                                        <span className="inline-flex items-center text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full text-xs font-bold border border-emerald-100">
-                                                            <CheckCircle2 size={14} className="mr-1.5" strokeWidth={3} /> Paid
+                                                        <span className="inline-flex items-center text-emerald-600 bg-emerald-50/50 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border border-emerald-100">
+                                                            Paid
                                                         </span>
                                                     ) : (
-                                                        <div className="flex items-center gap-2 h-9">
+                                                        <div className="flex items-center gap-2 h-10 opacity-60 group-hover:opacity-100 transition-opacity">
                                                             <div className="relative flex items-center h-full">
                                                                 <input
                                                                     type="number"
-                                                                    className="w-24 pl-3 pr-2 h-full text-xs bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none transition-all placeholder:text-gray-300 font-medium"
+                                                                    className="w-24 pl-3 pr-2 h-full text-xs bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-emerald-500 outline-none transition-all placeholder:text-gray-300 font-medium"
                                                                     placeholder="Amount"
                                                                     value={paymentAmounts[sale.id] || ''}
                                                                     onChange={(e) => handlePaymentChange(sale.id, e.target.value)}
@@ -353,27 +353,27 @@ const Dashboard = () => {
                                                             </div>
                                                             <button
                                                                 onClick={() => submitPayment(sale.id)}
-                                                                className="h-9 w-9 flex items-center justify-center text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors border border-transparent hover:border-emerald-100"
+                                                                className="h-9 w-9 flex items-center justify-center text-emerald-600 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors"
                                                                 title="Add Partial Payment"
                                                             >
-                                                                <Plus size={18} strokeWidth={3} />
+                                                                <Plus size={16} strokeWidth={3} />
                                                             </button>
-                                                            <div className="h-5 w-px bg-gray-100 mx-1"></div>
+                                                            <div className="h-4 w-px bg-gray-200 mx-2"></div>
                                                             <button
                                                                 onClick={() => settlePayment(sale)}
-                                                                className="h-9 w-9 flex items-center justify-center text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors border border-transparent hover:border-emerald-100"
+                                                                className="h-9 w-9 flex items-center justify-center text-emerald-600 bg-white border border-emerald-100 hover:bg-emerald-50 rounded-lg transition-colors"
                                                                 title="Mark Fully Paid"
                                                             >
-                                                                <CheckSquare size={20} strokeWidth={2} />
+                                                                <CheckSquare size={18} strokeWidth={2} />
                                                             </button>
                                                         </div>
                                                     )}
                                                 </td>
-                                                <td className="px-6 py-5 text-center">
-                                                    <div className="flex justify-center gap-1">
-                                                        <button onClick={() => openModal(sale, 'sale', 'view')} className="p-2 text-gray-400 hover:text-emerald-600 hover:bg-gray-50 rounded-lg transition-colors"><Eye size={16} /></button>
-                                                        <button onClick={() => openModal(sale, 'sale', 'edit')} className="p-2 text-gray-400 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"><Pencil size={16} /></button>
-                                                        <button onClick={() => deleteSale(sale.id)} className="p-2 text-gray-400 hover:text-rose-600 hover:bg-gray-50 rounded-lg transition-colors"><Trash2 size={16} /></button>
+                                                <td className="px-8 py-6 text-center">
+                                                    <div className="flex justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                        <button onClick={() => openModal(sale, 'sale', 'view')} className="p-2 text-gray-400 hover:text-emerald-600 hover:bg-gray-100 rounded-full transition-colors"><Eye size={18} strokeWidth={1.5} /></button>
+                                                        <button onClick={() => openModal(sale, 'sale', 'edit')} className="p-2 text-gray-400 hover:text-blue-600 hover:bg-gray-100 rounded-full transition-colors"><Pencil size={18} strokeWidth={1.5} /></button>
+                                                        <button onClick={() => deleteSale(sale.id)} className="p-2 text-gray-400 hover:text-rose-600 hover:bg-gray-100 rounded-full transition-colors"><Trash2 size={18} strokeWidth={1.5} /></button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -387,43 +387,43 @@ const Dashboard = () => {
                     {activeTab === 'stock' && (
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm text-left text-gray-500">
-                                <thead className="text-xs text-gray-400 font-bold uppercase bg-gray-50/50 tracking-wider">
+                                <thead className="text-xs text-gray-400 font-bold uppercase tracking-widest border-b border-gray-100">
                                     <tr>
-                                        <th className="px-8 py-5">Supplier</th>
-                                        <th className="px-6 py-5">Seed (Lot)</th>
-                                        <th className="px-6 py-5">Arrival</th>
-                                        <th className="px-6 py-5">Stock Level</th>
-                                        <th className="px-6 py-5">Status</th>
-                                        <th className="px-6 py-5 text-center">Actions</th>
+                                        <th className="px-8 py-6 font-semibold">Supplier</th>
+                                        <th className="px-8 py-6 font-semibold">Seed (Lot)</th>
+                                        <th className="px-8 py-6 font-semibold">Arrival</th>
+                                        <th className="px-8 py-6 font-semibold">Stock Level</th>
+                                        <th className="px-8 py-6 font-semibold">Status</th>
+                                        <th className="px-8 py-6 text-center font-semibold">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-gray-50">
+                                <tbody className="">
                                     {filteredData.length === 0 ? (
-                                        <tr><td colSpan="6" className="px-8 py-10 text-center text-gray-400">No stock found matching filters.</td></tr>
+                                        <tr><td colSpan="6" className="px-8 py-16 text-center text-gray-400 font-medium">No stock data available.</td></tr>
                                     ) : (
                                         filteredData.map((batch) => (
-                                            <tr key={batch.id} className="bg-white hover:bg-gray-50/80 transition-colors">
-                                                <td className="px-8 py-5 text-gray-900 font-bold">{batch.supplier_name}</td>
-                                                <td className="px-6 py-5">
+                                            <tr key={batch.id} className="group hover:bg-gray-50/50 transition-colors border-b border-gray-50 last:border-0">
+                                                <td className="px-8 py-6 text-gray-900 font-bold text-base">{batch.supplier_name}</td>
+                                                <td className="px-8 py-6">
                                                     <div className="flex flex-col">
                                                         <span className="text-gray-900 font-medium">{batch.seed_name}</span>
-                                                        <span className="text-xs text-gray-400 font-mono">#{batch.lot_no}</span>
+                                                        <span className="text-[10px] text-gray-400 font-mono tracking-wider">#{batch.lot_no}</span>
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-5 text-gray-500">{formatDate(batch.arrival_date)}</td>
-                                                <td className="px-6 py-5 font-mono text-gray-700 font-medium">{batch.packets_available} pkts</td>
-                                                <td className="px-6 py-5">
+                                                <td className="px-8 py-6 text-gray-400 text-xs tracking-wider font-mono">{formatDate(batch.arrival_date)}</td>
+                                                <td className="px-8 py-6 font-mono text-gray-700 font-bold bg-gray-50/50 rounded-lg">{batch.packets_available} <span className="text-xs font-normal text-gray-400">pkts</span></td>
+                                                <td className="px-8 py-6">
                                                     {batch.packets_available > 0 ? (
-                                                        <span className="inline-flex items-center text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded text-xs font-bold border border-emerald-100">In Stock</span>
+                                                        <span className="inline-flex items-center text-emerald-600 bg-emerald-50/50 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-emerald-100">In Stock</span>
                                                     ) : (
-                                                        <span className="inline-flex items-center text-gray-500 bg-gray-100 px-2.5 py-1 rounded text-xs font-bold">Empty</span>
+                                                        <span className="inline-flex items-center text-gray-400 bg-gray-100 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Empty</span>
                                                     )}
                                                 </td>
-                                                <td className="px-6 py-5 text-center">
-                                                    <div className="flex justify-center gap-1">
-                                                        <button onClick={() => openModal(batch, 'stock', 'view')} className="p-2 text-gray-400 hover:text-emerald-600 hover:bg-gray-50 rounded-lg transition-colors"><Eye size={16} /></button>
-                                                        <button onClick={() => openModal(batch, 'stock', 'edit')} className="p-2 text-gray-400 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"><Pencil size={16} /></button>
-                                                        <button onClick={() => deleteStock(batch.id)} className="p-2 text-gray-400 hover:text-rose-600 hover:bg-gray-50 rounded-lg transition-colors"><Trash2 size={16} /></button>
+                                                <td className="px-8 py-6 text-center">
+                                                    <div className="flex justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                        <button onClick={() => openModal(batch, 'stock', 'view')} className="p-2 text-gray-400 hover:text-emerald-600 hover:bg-gray-100 rounded-full transition-colors"><Eye size={18} strokeWidth={1.5} /></button>
+                                                        <button onClick={() => openModal(batch, 'stock', 'edit')} className="p-2 text-gray-400 hover:text-blue-600 hover:bg-gray-100 rounded-full transition-colors"><Pencil size={18} strokeWidth={1.5} /></button>
+                                                        <button onClick={() => deleteStock(batch.id)} className="p-2 text-gray-400 hover:text-rose-600 hover:bg-gray-100 rounded-full transition-colors"><Trash2 size={18} strokeWidth={1.5} /></button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -437,32 +437,32 @@ const Dashboard = () => {
                     {activeTab === 'expenses' && (
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm text-left text-gray-500">
-                                <thead className="text-xs text-gray-400 font-bold uppercase bg-gray-50/50 tracking-wider">
+                                <thead className="text-xs text-gray-400 font-bold uppercase tracking-widest border-b border-gray-100">
                                     <tr>
-                                        <th className="px-8 py-5">Date</th>
-                                        <th className="px-6 py-5">Category</th>
-                                        <th className="px-6 py-5">Description</th>
-                                        <th className="px-6 py-5">Amount</th>
-                                        <th className="px-6 py-5 text-center">Actions</th>
+                                        <th className="px-8 py-6 font-semibold">Date</th>
+                                        <th className="px-8 py-6 font-semibold">Category</th>
+                                        <th className="px-8 py-6 font-semibold">Description</th>
+                                        <th className="px-8 py-6 font-semibold">Amount</th>
+                                        <th className="px-8 py-6 text-center font-semibold">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-gray-50">
+                                <tbody className="">
                                     {filteredData.length === 0 ? (
-                                        <tr><td colSpan="5" className="px-8 py-10 text-center text-gray-400">No expenses found matching filters.</td></tr>
+                                        <tr><td colSpan="5" className="px-8 py-16 text-center text-gray-400 font-medium">No expenses logged yet.</td></tr>
                                     ) : (
                                         filteredData.map((exp) => (
-                                            <tr key={exp.id} className="bg-white hover:bg-gray-50/80 transition-colors">
-                                                <td className="px-8 py-5 text-gray-600 font-mono text-xs font-medium">{formatDate(exp.expense_date)}</td>
-                                                <td className="px-6 py-5">
-                                                    <span className="bg-gray-50 text-gray-600 px-2.5 py-1 rounded-lg text-xs font-bold border border-gray-200 uppercase tracking-wide">{exp.category}</span>
+                                            <tr key={exp.id} className="group hover:bg-gray-50/50 transition-colors border-b border-gray-50 last:border-0">
+                                                <td className="px-8 py-6 text-gray-400 font-mono text-xs tracking-wider">{formatDate(exp.expense_date)}</td>
+                                                <td className="px-8 py-6">
+                                                    <span className="bg-white text-gray-600 px-3 py-1.5 rounded-lg text-xs font-bold border border-gray-200 uppercase tracking-wider shadow-sm">{exp.category}</span>
                                                 </td>
-                                                <td className="px-6 py-5 text-gray-400 italic text-xs">{exp.description || '-'}</td>
-                                                <td className="px-6 py-5 font-bold text-gray-900">₹{exp.amount}</td>
-                                                <td className="px-6 py-5 text-center">
-                                                    <div className="flex justify-center gap-1">
-                                                        <button onClick={() => openModal(exp, 'expense', 'view')} className="p-2 text-gray-400 hover:text-emerald-600 hover:bg-gray-50 rounded-lg transition-colors"><Eye size={16} /></button>
-                                                        <button onClick={() => openModal(exp, 'expense', 'edit')} className="p-2 text-gray-400 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"><Pencil size={16} /></button>
-                                                        <button onClick={() => deleteExpense(exp.id)} className="p-2 text-gray-400 hover:text-rose-600 hover:bg-gray-50 rounded-lg transition-colors"><Trash2 size={16} /></button>
+                                                <td className="px-8 py-6 text-gray-400 italic text-sm">{exp.description || '-'}</td>
+                                                <td className="px-8 py-6 font-bold text-gray-900 text-base">₹{exp.amount}</td>
+                                                <td className="px-8 py-6 text-center">
+                                                    <div className="flex justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                        <button onClick={() => openModal(exp, 'expense', 'view')} className="p-2 text-gray-400 hover:text-emerald-600 hover:bg-gray-100 rounded-full transition-colors"><Eye size={18} strokeWidth={1.5} /></button>
+                                                        <button onClick={() => openModal(exp, 'expense', 'edit')} className="p-2 text-gray-400 hover:text-blue-600 hover:bg-gray-100 rounded-full transition-colors"><Pencil size={18} strokeWidth={1.5} /></button>
+                                                        <button onClick={() => deleteExpense(exp.id)} className="p-2 text-gray-400 hover:text-rose-600 hover:bg-gray-100 rounded-full transition-colors"><Trash2 size={18} strokeWidth={1.5} /></button>
                                                     </div>
                                                 </td>
                                             </tr>
